@@ -2,13 +2,13 @@
 /* https://aboutreact.com/react-native-login-and-signup/ */
 
 //Import React and Hooks we needed
-import React, { useState, useEffect } from 'react';
+import React, {useState, useEffect} from 'react';
 
 //Import all required component
-import { ActivityIndicator, View, StyleSheet, Image } from 'react-native';
+import {ActivityIndicator, View, StyleSheet, Image} from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
 
-const SplashScreen = props => {
+const SplashScreen = (props) => {
   //State for ActivityIndicator animation
   let [animating, setAnimating] = useState(true);
 
@@ -18,10 +18,8 @@ const SplashScreen = props => {
       //Check if user_id is set or not
       //If not then send for Authentication
       //else send to Home Screen
-      AsyncStorage.getItem('email').then(value =>
-        props.navigation.navigate(
-          value === null ? 'Auth' : 'DrawerNavigationRoutes'
-        )
+      AsyncStorage.getItem('email').then((value) =>
+        props.navigation.navigate(value === null ? 'Auth' : 'App'),
       );
     }, 5000);
   }, []);
@@ -30,7 +28,7 @@ const SplashScreen = props => {
     <View style={styles.container}>
       <Image
         source={require('../img/aboutreact.png')}
-        style={{ width: '90%', resizeMode: 'contain', margin: 30 }}
+        style={{width: '90%', resizeMode: 'contain', margin: 30}}
       />
       <ActivityIndicator
         animating={animating}
