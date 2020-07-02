@@ -1,10 +1,10 @@
 /*Screen to register the user*/
 import React from 'react';
-import { View, ScrollView, KeyboardAvoidingView, Alert } from 'react-native';
+import {View, ScrollView, KeyboardAvoidingView, Alert} from 'react-native';
 import Mytextinput from './components/Mytextinput';
 import Mybutton from './components/Mybutton';
-import { openDatabase } from 'react-native-sqlite-storage';
-var db = openDatabase({ name: './db/User_db.db' });
+import {openDatabase} from 'react-native-sqlite-storage';
+var db = openDatabase({name: 'user_db.db', createFromLocation: 1});
 export default class RegisterUser extends React.Component {
   constructor(props) {
     super(props);
@@ -16,14 +16,14 @@ export default class RegisterUser extends React.Component {
   }
   register_user = () => {
     var that = this;
-    const { user_name } = this.state;
-    const { user_contact } = this.state;
-    const { user_address } = this.state;
+    const {user_name} = this.state;
+    const {user_contact} = this.state;
+    const {user_address} = this.state;
     //alert(user_name, user_contact, user_address);
     if (user_name) {
       if (user_contact) {
         if (user_address) {
-          db.transaction(function(tx) {
+          db.transaction(function (tx) {
             tx.executeSql(
               'INSERT INTO table_user (user_name, user_contact, user_address) VALUES (?,?,?)',
               [user_name, user_contact, user_address],
@@ -40,12 +40,12 @@ export default class RegisterUser extends React.Component {
                           that.props.navigation.navigate('HomeScreen'),
                       },
                     ],
-                    { cancelable: false }
+                    {cancelable: false},
                   );
                 } else {
                   alert('Registration Failed');
                 }
-              }
+              },
             );
           });
         } else {
@@ -60,30 +60,30 @@ export default class RegisterUser extends React.Component {
   };
   render() {
     return (
-      <View style={{ backgroundColor: 'white', flex: 1 }}>
+      <View style={{backgroundColor: 'white', flex: 1}}>
         <ScrollView keyboardShouldPersistTaps="handled">
           <KeyboardAvoidingView
             behavior="padding"
-            style={{ flex: 1, justifyContent: 'space-between' }}>
+            style={{flex: 1, justifyContent: 'space-between'}}>
             <Mytextinput
               placeholder="Enter Name"
-              onChangeText={user_name => this.setState({ user_name })}
-              style={{ padding:10 }}
+              onChangeText={(user_name) => this.setState({user_name})}
+              style={{padding: 10}}
             />
             <Mytextinput
               placeholder="Enter Contact No"
-              onChangeText={user_contact => this.setState({ user_contact })}
+              onChangeText={(user_contact) => this.setState({user_contact})}
               maxLength={10}
               keyboardType="numeric"
-              style={{ padding:10 }}
+              style={{padding: 10}}
             />
             <Mytextinput
               placeholder="Enter Address"
-              onChangeText={user_address => this.setState({ user_address })}
+              onChangeText={(user_address) => this.setState({user_address})}
               maxLength={225}
               numberOfLines={5}
               multiline={true}
-              style={{ textAlignVertical: 'top',padding:10 }}
+              style={{textAlignVertical: 'top', padding: 10}}
             />
             <Mybutton
               title="Submit"

@@ -12,6 +12,7 @@ import {
   KeyboardAvoidingView,
   AsyncStorage,
   ScrollView,
+  Platform,
 } from 'react-native';
 
 import {StackNavigator} from 'react-navigation';
@@ -67,7 +68,7 @@ export default class Register extends Component {
     return (
       <KeyboardAvoidingView
         style={{flex: 1, backgroundColor: '#16a085'}}
-        behavior="padding">
+        behavior={Platform.OS == 'ios' ? 'padding' : null}>
         <ScrollView
           contentContainerStyle={{paddingBottom: 80}}
           showsHorizontalScrollIndicator={false}
@@ -78,7 +79,7 @@ export default class Register extends Component {
                 style={styles.logo}
                 source={require('../img/register.png')}
               />
-              <Text style={styles.subtext}>Sign Up:</Text>
+              <Text style={styles.subtext}>Sign Up</Text>
             </View>
             <View>
               <TextInput
@@ -116,7 +117,7 @@ export default class Register extends Component {
                 secureTextEntry
               />
               <TextInput
-                value={this.state.password}
+                value={this.state.password_confirmation}
                 onChangeText={(password_confirmation) =>
                   this.setState({password_confirmation})
                 }

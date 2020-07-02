@@ -1,10 +1,10 @@
 /*Screen to delete the user*/
 import React from 'react';
-import { Button, Text, View, Alert } from 'react-native';
+import {Button, Text, View, Alert} from 'react-native';
 import Mytextinput from './components/Mytextinput';
 import Mybutton from './components/Mybutton';
-import { openDatabase } from 'react-native-sqlite-storage';
-var db = openDatabase({ name: './db/User_db.db.db' });
+import {openDatabase} from 'react-native-sqlite-storage';
+var db = openDatabase({name: 'user_db.db', createFromLocation: 1});
 export default class UpdateUser extends React.Component {
   constructor(props) {
     super(props);
@@ -14,8 +14,8 @@ export default class UpdateUser extends React.Component {
   }
   deleteUser = () => {
     var that = this;
-    const { input_user_id } = this.state;
-    db.transaction(tx => {
+    const {input_user_id} = this.state;
+    db.transaction((tx) => {
       tx.executeSql(
         'DELETE FROM  table_user where user_id=?',
         [input_user_id],
@@ -31,22 +31,22 @@ export default class UpdateUser extends React.Component {
                   onPress: () => that.props.navigation.navigate('HomeScreen'),
                 },
               ],
-              { cancelable: false }
+              {cancelable: false},
             );
           } else {
             alert('Please insert a valid User Id');
           }
-        }
+        },
       );
     });
   };
   render() {
     return (
-      <View style={{ backgroundColor: 'white', flex: 1 }}>
+      <View style={{backgroundColor: 'white', flex: 1}}>
         <Mytextinput
           placeholder="Enter User Id"
-          onChangeText={input_user_id => this.setState({ input_user_id })}
-          style={{ padding:10 }}
+          onChangeText={(input_user_id) => this.setState({input_user_id})}
+          style={{padding: 10}}
         />
         <Mybutton
           title="Delete User"

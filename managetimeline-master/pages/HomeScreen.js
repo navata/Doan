@@ -1,27 +1,27 @@
 /*Home Screen With buttons to navigate to different options*/
 import React from 'react';
-import { View } from 'react-native';
+import {View} from 'react-native';
 import Mybutton from './components/Mybutton';
 import Mytext from './components/Mytext';
-import { openDatabase } from 'react-native-sqlite-storage';
-var db = openDatabase({ name: './db/User_db.db.db' });
+import {openDatabase} from 'react-native-sqlite-storage';
+var db = openDatabase({name: 'user_db.db', createFromLocation: 1});
 export default class HomeScreen extends React.Component {
   constructor(props) {
     super(props);
-    db.transaction(function(txn) {
+    db.transaction(function (txn) {
       txn.executeSql(
         "SELECT name FROM sqlite_master WHERE type='table' AND name='table_user'",
         [],
-        function(tx, res) {
+        function (tx, res) {
           console.log('item:', res.rows.length);
           if (res.rows.length == 0) {
             txn.executeSql('DROP TABLE IF EXISTS table_user', []);
             txn.executeSql(
               'CREATE TABLE IF NOT EXISTS table_user(user_id INTEGER PRIMARY KEY AUTOINCREMENT, user_name VARCHAR(20), user_contact INT(10), user_address VARCHAR(255))',
-              []
+              [],
             );
           }
-        }
+        },
       );
     });
   }
@@ -33,10 +33,10 @@ export default class HomeScreen extends React.Component {
           backgroundColor: 'white',
           flexDirection: 'column',
         }}>
-        <Mytext text="SQLite Example" />
+        <Mytext text="Manage User" />
         <Mybutton
           title="Register"
-          customClick={() => this.props.navigation.navigate('Register')}
+          customClick={() => this.props.navigation.navigate('RegisterUser')}
         />
         <Mybutton
           title="Update"

@@ -10,7 +10,8 @@ import {
   StyleSheet, // CSS-like styles
   Text, // Renders text
   View,
-  Keyboard, // Container component
+  Keyboard,
+  ScrollView // Container component
 } from 'react-native';
 
 import {StackNavigator} from 'react-navigation';
@@ -72,9 +73,13 @@ export default class Login extends Component {
   }
   render() {
     return (
-      <KeyboardAvoidingView style={{flex: 1}} behavior="padding">
+      <KeyboardAvoidingView style={{flex: 1, backgroundColor: '#16a085',}} behavior={Platform.OS == 'ios' ? "padding" : null}>
+        <ScrollView
+          contentContainerStyle={{paddingVertical: 80}}
+          showsHorizontalScrollIndicator={false}
+          showsVerticalScrollIndicator={false}>
         <View style={styles.container}>
-          <View behavior="padding" style={styles.container}>
+          <View style={styles.container}>
             <View style={styles.logoContainer}>
               <Image style={styles.logo} source={require('../img/login.png')} />
               <Text style={styles.subtext}>Calendar App</Text>
@@ -132,6 +137,7 @@ export default class Login extends Component {
             </Text>
           </TouchableOpacity>
         </View>
+        </ScrollView>
       </KeyboardAvoidingView>
     );
   }

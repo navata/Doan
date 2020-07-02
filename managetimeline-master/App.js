@@ -202,10 +202,10 @@ const AppStack = createStackNavigator({
       headerTintColor: '#ffffff',
     },
   },
-  Register: {
-    screen: Register,
+  RegisterUser: {
+    screen: RegisterUser,
     navigationOptions: {
-      title: 'Register',
+      title: 'RegisterUser',
     },
   },
 });
