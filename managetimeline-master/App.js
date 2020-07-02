@@ -194,18 +194,18 @@ const AppStack = createStackNavigator({
       headerTintColor: '#ffffff',
     },
   },
-  Register: {
-    screen: Register,
-    navigationOptions: {
-      title: 'Register',
-    },
-  },
   Delete: {
     screen: DeleteUser,
     navigationOptions: {
       title: 'Delete User',
       headerStyle: {backgroundColor: '#f05555'},
       headerTintColor: '#ffffff',
+    },
+  },
+  Register: {
+    screen: Register,
+    navigationOptions: {
+      title: 'Register',
     },
   },
 });
@@ -236,6 +236,12 @@ const AuthStack = createStackNavigator({
       title: 'Register User',
       headerStyle: {backgroundColor: '#f05555'},
       headerTintColor: '#ffffff',
+    },
+  },
+  Register: {
+    screen: Register,
+    navigationOptions: {
+      title: 'Register',
     },
   },
 });

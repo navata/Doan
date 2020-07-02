@@ -9,7 +9,8 @@ import {
   Button,
   StyleSheet, // CSS-like styles
   Text, // Renders text
-  View, // Container component
+  View,
+  Keyboard, // Container component
 } from 'react-native';
 
 import {StackNavigator} from 'react-navigation';
@@ -23,6 +24,10 @@ export default class Login extends Component {
       password: '',
     };
   }
+  componentWillUnmount() {
+    Keyboard.dismiss();
+  }
+
   static navigationOptions = {
     headerStyle: {
       backgroundColor: '#16a085',
@@ -67,61 +72,67 @@ export default class Login extends Component {
   }
   render() {
     return (
-      <View style={styles.container}>
-        <View behavior="padding" style={styles.container}>
-          <View style={styles.logoContainer}>
-            <Image style={styles.logo} source={require('../img/login.png')} />
-            <Text style={styles.subtext}>Calendar App</Text>
+      <KeyboardAvoidingView style={{flex: 1}} behavior="padding">
+        <View style={styles.container}>
+          <View behavior="padding" style={styles.container}>
+            <View style={styles.logoContainer}>
+              <Image style={styles.logo} source={require('../img/login.png')} />
+              <Text style={styles.subtext}>Calendar App</Text>
+            </View>
+            <View style={styles.keyboard}>
+              <View style={styles.window}>
+                <TextInput
+                  ref={(input) => (this.phone = input)}
+                  autoFocus={false}
+                  placeholder="phone"
+                  placeholderTextColor="rgba(255,255,255,0.7)"
+                  returnKeyType="next"
+                  onSubmitEditing={() => this.passwordInput.blur()}
+                  keyboardType="phone-pad"
+                  autoCapitalize="none"
+                  autoCorrect={false}
+                  value={this.state.phone}
+                  onChangeText={(phone) => this.setState({phone})}
+                />
+              </View>
+              <View style={styles.window}>
+                <TextInput
+                  autoFocus={false}
+                  placeholder="Password"
+                  placeholderTextColor="rgba(255,255,255,0.7)"
+                  returnKeyType="go"
+                  secureTextEntry
+                  ref={(input) => (this.passwordInput = input)}
+                  value={this.state.password}
+                  onChangeText={(password) => this.setState({password})}
+                  onSubmitEditing={() => this.passwordInput.blur()}
+                />
+              </View>
+              <TouchableOpacity
+                style={styles.buttonContainer}
+                onPress={this.onLoginPress.bind(this)}>
+                <Text style={styles.buttonText}>LOGIN</Text>
+              </TouchableOpacity>
+            </View>
           </View>
-          <KeyboardAvoidingView style={styles.keyboard}>
-            <View style={styles.window}>
-              <TextInput
-                placeholder="phone"
-                placeholderTextColor="rgba(255,255,255,0.7)"
-                returnKeyType="next"
-                onSubmitEditing={() => this.passwordInput.focus()}
-                keyboardType="phone-pad"
-                autoCapitalize="none"
-                autoCorrect={false}
-                value={this.state.phone}
-                onChangeText={(phone) => this.setState({phone})}
-              />
-            </View>
-            <View style={styles.window}>
-              <TextInput
-                placeholder="Password"
-                placeholderTextColor="rgba(255,255,255,0.7)"
-                returnKeyType="go"
-                secureTextEntry
-                ref={(input) => (this.passwordInput = input)}
-                value={this.state.password}
-                onChangeText={(password) => this.setState({password})}
-              />
-            </View>
-            <TouchableOpacity
-              style={styles.buttonContainer}
-              onPress={this.onLoginPress.bind(this)}>
-              <Text style={styles.buttonText}>LOGIN</Text>
-            </TouchableOpacity>
-          </KeyboardAvoidingView>
+          <TouchableOpacity style={styles.button}>
+            <Text
+              style={styles.buttonText}
+              onPress={() => this.props.navigation.navigate('Register')}
+              title="Sign up">
+              Sign up
+            </Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.button}>
+            <Text
+              style={styles.buttonText}
+              onPress={() => this.props.navigation.navigate('ForgetPassword')}
+              title="Forget Password">
+              Forget Password
+            </Text>
+          </TouchableOpacity>
         </View>
-        <TouchableOpacity style={styles.button}>
-          <Text
-            style={styles.buttonText}
-            onPress={() => this.props.navigation.navigate('Register')}
-            title="Sign up">
-            Sign up
-          </Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.button}>
-          <Text
-            style={styles.buttonText}
-            onPress={() => this.props.navigation.navigate('ForgetPassword')}
-            title="Forget Password">
-            Forget Password
-          </Text>
-        </TouchableOpacity>
-      </View>
+      </KeyboardAvoidingView>
     );
   }
 }

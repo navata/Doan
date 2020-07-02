@@ -11,6 +11,7 @@ import {
   TouchableOpacity,
   KeyboardAvoidingView,
   AsyncStorage,
+  ScrollView,
 } from 'react-native';
 
 import {StackNavigator} from 'react-navigation';
@@ -64,66 +65,78 @@ export default class Register extends Component {
 
   render() {
     return (
-      <View behavior="padding" style={styles.container}>
-        <View style={styles.logoContainer}>
-          <Image style={styles.logo} source={require('../img/register.png')} />
-          <Text style={styles.subtext}>Sign Up:</Text>
-        </View>
-        <KeyboardAvoidingView>
-          <TextInput
-            value={this.state.name}
-            onChangeText={(name) => this.setState({name})}
-            style={styles.input}
-            placeholder="Name"
-            placeholderTextColor="rgba(255,255,255,0.7)"
-            returnKeyType="next"
-            onSubmitEditing={() => this.phoneInput.focus()}
-          />
-          <TextInput
-            value={this.state.phone}
-            onChangeText={(phone) => this.setState({phone})}
-            style={styles.input}
-            placeholderTextColor="rgba(255,255,255,0.7)"
-            returnKeyType="next"
-            ref={(input) => (this.phoneInput = input)}
-            onSubmitEditing={() => this.passwordCInput.focus()}
-            keyboardType="phone-pad"
-            autoCapitalize="none"
-            autoCorrect={false}
-            placeholder="Phone"
-          />
-          <TextInput
-            value={this.state.password}
-            onChangeText={(password) => this.setState({password})}
-            style={styles.input}
-            placeholder="Password"
-            secureTextEntry={true}
-            placeholderTextColor="rgba(255,255,255,0.7)"
-            ref={(input) => (this.passwordCInput = input)}
-            onSubmitEditing={() => this.passwordInput.focus()}
-            returnKeyType="next"
-            secureTextEntry
-          />
-          <TextInput
-            value={this.state.password}
-            onChangeText={(password_confirmation) =>
-              this.setState({password_confirmation})
-            }
-            style={styles.input}
-            placeholder="Confirm Password"
-            secureTextEntry={true}
-            placeholderTextColor="rgba(255,255,255,0.7)"
-            returnKeyType="go"
-            secureTextEntry
-            ref={(input) => (this.passwordInput = input)}
-          />
-        </KeyboardAvoidingView>
-        <TouchableHighlight
-          onPress={this.saveData.bind(this)}
-          style={styles.button}>
-          <Text style={styles.buttonText}>Register</Text>
-        </TouchableHighlight>
-      </View>
+      <KeyboardAvoidingView
+        style={{flex: 1, backgroundColor: '#16a085'}}
+        behavior="padding">
+        <ScrollView
+          contentContainerStyle={{paddingBottom: 80}}
+          showsHorizontalScrollIndicator={false}
+          showsVerticalScrollIndicator={false}>
+          <View style={styles.container}>
+            <View style={styles.logoContainer}>
+              <Image
+                style={styles.logo}
+                source={require('../img/register.png')}
+              />
+              <Text style={styles.subtext}>Sign Up:</Text>
+            </View>
+            <View>
+              <TextInput
+                value={this.state.name}
+                onChangeText={(name) => this.setState({name})}
+                style={styles.input}
+                placeholder="Name"
+                placeholderTextColor="rgba(255,255,255,0.7)"
+                returnKeyType="next"
+                onSubmitEditing={() => this.phoneInput.focus()}
+              />
+              <TextInput
+                value={this.state.phone}
+                onChangeText={(phone) => this.setState({phone})}
+                style={styles.input}
+                placeholderTextColor="rgba(255,255,255,0.7)"
+                returnKeyType="next"
+                ref={(input) => (this.phoneInput = input)}
+                onSubmitEditing={() => this.passwordCInput.focus()}
+                keyboardType="phone-pad"
+                autoCapitalize="none"
+                autoCorrect={false}
+                placeholder="Phone"
+              />
+              <TextInput
+                value={this.state.password}
+                onChangeText={(password) => this.setState({password})}
+                style={styles.input}
+                placeholder="Password"
+                secureTextEntry={true}
+                placeholderTextColor="rgba(255,255,255,0.7)"
+                ref={(input) => (this.passwordCInput = input)}
+                onSubmitEditing={() => this.passwordInput.focus()}
+                returnKeyType="next"
+                secureTextEntry
+              />
+              <TextInput
+                value={this.state.password}
+                onChangeText={(password_confirmation) =>
+                  this.setState({password_confirmation})
+                }
+                style={styles.input}
+                placeholder="Confirm Password"
+                secureTextEntry={true}
+                placeholderTextColor="rgba(255,255,255,0.7)"
+                returnKeyType="go"
+                secureTextEntry
+                ref={(input) => (this.passwordInput = input)}
+              />
+            </View>
+            <TouchableHighlight
+              onPress={this.saveData.bind(this)}
+              style={styles.button}>
+              <Text style={styles.buttonText}>Register</Text>
+            </TouchableHighlight>
+          </View>
+        </ScrollView>
+      </KeyboardAvoidingView>
     );
   }
 }
@@ -142,6 +155,7 @@ const styles = StyleSheet.create({
     flexGrow: 1,
     justifyContent: 'center',
     alignItems: 'center',
+    marginBottom: 16,
   },
   logo: {
     width: 200,
